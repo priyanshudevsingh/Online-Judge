@@ -11,18 +11,7 @@ function App() {
       <NavBar />
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<Home />} />
-          <Route
-            path="/questions"
-            element={Authentication(<QuestionsUser />)}
-          /> */}
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/dashboard" element={Authentication(<Dashboard />)} />
-          <Route path="/addQ" element={Authentication(<AddQ />)} />
-          <Route
-            path="/Question/:uniquename"
-            element={Authentication(<Editor />)}
-          /> */}
         </Routes>
       </BrowserRouter>
     </div>
