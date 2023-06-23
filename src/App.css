@@ -1,38 +1,152 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Login & Register Page CSS start */
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #17cf97;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.form-box-register{
+    position: relative;
+    width: 450px;
+    height: 550px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form-box-login{
+    position: relative;
+    width: 450px;
+    height: 400px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+h2{
+    text-align: center;
+}
+
+.inputbox{
+    position: relative;
+    margin: 25px 0;
+    width: 300px;
+    border-bottom: 2px solid #fff;
+}
+
+.inputbox label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1em;
+    pointer-events: none;
+    transition: .5s;
+}
+
+input:focus ~ label,
+input:valid ~ label{
+top: -5px;
+}
+.inputbox input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding:0 35px 0 5px;
+    color: #fff;
+}
+
+.click input{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background: #1b2430;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    color: #fff;
+}
+
+.material-symbols-outlined{
+    position: absolute;
+    right: 8px;
+    color:#1b2430;
+    font-size: 1.7em;
+}
+
+.already {
+    margin: 5px;
+    display: flex;
+    justify-content: right;
   }
-}
+/* Login & Register Page CSS end */
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* NavBar CSS start */
+nav {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  background-color: #1b2430;
+  padding: 15px 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
 
-.App-link {
-  color: #61dafb;
+#navbar{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#navbar li{
+    list-style: none;
+    padding: 0px 20px;
+    position: relative;
 }
+
+#navbar li a{
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+}
+
+#navbar li a:hover{
+    color: #17cf97;
+}
+
+#navbar li a:hover::after{
+    content: "";
+    width: 30%;
+    height: 2px;
+    background-color: #17cf97;
+    position: absolute;
+    bottom: -4px;
+    left: 20px;
+}
+/* NavBar CSS end */

@@ -1,14 +1,38 @@
-import React from 'react'
+import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   return (
     <>
       <section>
-        <div className="form-box-login">
+        <div className="form-box-register">
           <div className="form-value">
             <form>
-              <h2>Login</h2>
+              <h2>Register</h2>
+
+              <div className="inputbox">
+                <label htmlFor="name">
+                  <span class="material-symbols-outlined">person</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  autoComplete="off"
+                  placeholder="Name"
+                ></input>
+              </div>
+
+              <div className="inputbox">
+                <label htmlFor="name">
+                  <span class="material-symbols-outlined">face</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  autoComplete="off"
+                  placeholder="UserID"
+                ></input>
+              </div>
 
               <div className="inputbox">
                 <label htmlFor="email">
@@ -47,18 +71,18 @@ const Login = () => {
               </div>
 
               <div className="click">
-                <input type="submit" value="Login" />
+                <input type="submit" value="Register" />
               </div>
 
             </form>
 
-            <NavLink className="already" to="/register">Not Registered Yet?</NavLink>
+            <NavLink className="already" to="/login">I am already registered</NavLink>
 
           </div>
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Register;
