@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css"
 import NavBar from "./Components/NavBar";
 import Home from "./Components/Home";
-import Contact from "./Components/Contact";
+import Questions from "./Components/Questions";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -15,7 +15,7 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/questions" element={<Questions />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>

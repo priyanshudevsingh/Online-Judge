@@ -1,7 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 
 const Register = () => {
+  const [user, setUser] = useState({
+    name:"", userid:"", email:"", password:"", cpassword:"" 
+  });
+
+  let name, value;
+  const handleInputs=(e)=>{
+    // console.log(e);
+    name=e.target.name;
+    value=e.target.value;
+    setUser({...user, [name]:value});
+  }
+
   return (
     <>
       <section>
@@ -12,60 +24,75 @@ const Register = () => {
 
               <div className="inputbox">
                 <label htmlFor="name">
-                  <span class="material-symbols-outlined">person</span>
+                  <span className="material-symbols-outlined">person</span>
                 </label>
                 <input
                   type="text"
+                  name="name"
                   required
                   autoComplete="off"
+                  value={user.name}
+                  onChange={handleInputs}
                   placeholder="Name"
                 ></input>
               </div>
 
               <div className="inputbox">
-                <label htmlFor="name">
-                  <span class="material-symbols-outlined">face</span>
+                <label htmlFor="userid">
+                  <span className="material-symbols-outlined">face</span>
                 </label>
                 <input
                   type="text"
+                  name="userid"
                   required
                   autoComplete="off"
+                  value={user.userid}
+                  onChange={handleInputs}
                   placeholder="UserID"
                 ></input>
               </div>
 
               <div className="inputbox">
                 <label htmlFor="email">
-                  <span class="material-symbols-outlined">mail</span>
+                  <span className="material-symbols-outlined">mail</span>
                 </label>
                 <input
                   type="email"
+                  name="email"
                   required
                   autoComplete="off"
+                  value={user.email}
+                  onChange={handleInputs}
                   placeholder="Email"
                 ></input>
               </div>
 
               <div className="inputbox">
                 <label htmlFor="password">
-                  <span class="material-symbols-outlined">password</span>
+                  <span className="material-symbols-outlined">password</span>
                 </label>
                 <input
                   type="password"
+                  name="password"
                   required
                   autoComplete="off"
+                  value={user.password}
+                  onChange={handleInputs}
                   placeholder="Password"
                 ></input>
               </div>
 
               <div className="inputbox">
                 <label htmlFor="cpassword">
-                  <span class="material-symbols-outlined">check</span>
+                  <span className="material-symbols-outlined">check</span>
                 </label>
                 <input
                   type="password"
+                  name="cpassword"
                   required
                   autoComplete="off"
+                  value={user.cpassword}
+                  onChange={handleInputs}
                   placeholder="Confirm Password"
                 ></input>
               </div>
