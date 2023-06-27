@@ -8,7 +8,7 @@ require("./db/connect");
 
 app.use(express.json());
 
-app.use(require("./router/auth"));
+app.use(require("./Router/auth"));
 
 const PORT = process.env.PORT;
 
