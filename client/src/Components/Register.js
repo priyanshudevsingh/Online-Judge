@@ -1,25 +1,73 @@
-import React, {useState} from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
-    name:"", userid:"", email:"", password:"", cpassword:"" 
+    name: "",
+    userid: "",
+    email: "",
+    password: "",
+    cpassword: "",
   });
 
   let name, value;
-  const handleInputs=(e)=>{
-    // console.log(e);
-    name=e.target.name;
-    value=e.target.value;
-    setUser({...user, [name]:value});
-  }
+  const handleInputs = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setUser({ ...user, [name]: value });
+  };
+
+  // connecting register page to backend
+  const PostData = async (e) => {
+    e.preventDefault();
+
+    const { name, userid, email, password, cpassword } = user;
+
+    const res = await fetch("/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        userid,
+        email,
+        password,
+        cpassword,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!data) {
+      window.alert("You're missing some fields");
+      console.log("You're missing some fields");
+    } else if (res.status === 422) {
+      window.alert("You're missing some fields");
+      console.log("You're missing some fields");
+    } else if (res.status === 409) {
+      window.alert("Email already Exists");
+      console.log("Email already Exists");
+    } else if (res.status === 406) {
+      window.alert("This UserID is not available");
+      console.log("This UserID is not available");
+    } else if (res.status === 400) {
+      window.alert("Passwords are not matching");
+      console.log("Passwords are not matching");
+    } else {
+      window.alert("Registration Successful");
+      console.log("Registration Successful");
+      navigate("/login");
+    }
+  };
 
   return (
     <>
-      <section>
+      <section className="registerpage">
         <div className="form-box-register">
           <div className="form-value">
-            <form>
+            <form method="POST">
               <h2>Register</h2>
 
               <div className="inputbox">
@@ -98,13 +146,13 @@ const Register = () => {
               </div>
 
               <div className="click">
-                <input type="submit" value="Register" />
+                <input type="submit" value="Register" onClick={PostData} />
               </div>
-
             </form>
 
-            <NavLink className="already" to="/login">I am already registered</NavLink>
-
+            <NavLink className="already" to="/login">
+              I am already registered
+            </NavLink>
           </div>
         </div>
       </section>

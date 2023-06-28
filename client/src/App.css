@@ -6,7 +6,16 @@
 }
 
 /* Login & Register Page CSS start */
-section{
+.loginpage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 87.5vh;
+    width: 100%;
+    background-color: #17cf97;
+}
+
+.registerpage{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,14 +40,13 @@ section{
 .form-box-login{
     position: relative;
     width: 450px;
-    height: 400px;
+    height: 350px;
     background: transparent;
     border: 2px solid rgba(255,255,255,0.5);
     border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 h2{
@@ -111,7 +119,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   background-color: #1b2430;
-  padding: 15px 20px;
+  padding: 9px 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
 
@@ -130,7 +138,7 @@ nav {
 
 #navbar li a{
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     font-weight: 600;
     color: #fff;
     transition: 0.3s ease-in-out;

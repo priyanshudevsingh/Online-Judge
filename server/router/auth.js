@@ -23,13 +23,13 @@ router.post("/register", async (req, res) => {
     const userUseridExist = await User.findOne({ userid: userid });
 
     if (userEmailExist) {
-      return res.status(422).json({ error: "Email already Exist" });
+      return res.status(409).json({ error: "Email already Exists" });
     } else if (userUseridExist) {
-      return res.status(422).json({ error: "This UserID is not available" });
+      return res.status(406).json({ error: "This UserID is not available" });
     } else if (password != cpassword) {
-      return res.status(422).json({ error: "Passwords are not matching" });
+      return res.status(400).json({ error: "Passwords are not matching" });
     } else {
-      const user = new User({ name, email, userid, password, cpassword });
+      const user = new User({ name, email, userid, password });
 
       await user.save();
 
@@ -66,7 +66,7 @@ router.post("/login", async (req, res) => {
       if (!isMatch) {
         res.status(400).json({ error: "Invalid Credentials" });
       } else {
-        res.json({ message: "User Logged in Successfully" });
+        res.status(201).json({ message: "User Logged in Successfully" });
       }
     } else {
       res.status(400).json({ error: "Invalid Credentials" });

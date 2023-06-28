@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const Login = () => {
   return (
     <>
-      <section>
+      <section className='loginpage'>
         <div className="form-box-login">
           <div className="form-value">
             <form>
@@ -31,18 +31,6 @@ const Login = () => {
                   required
                   autoComplete="off"
                   placeholder="Password"
-                ></input>
-              </div>
-
-              <div className="inputbox">
-                <label htmlFor="cpassword">
-                  <span class="material-symbols-outlined">check</span>
-                </label>
-                <input
-                  type="password"
-                  required
-                  autoComplete="off"
-                  placeholder="Confirm Password"
                 ></input>
               </div>
 
