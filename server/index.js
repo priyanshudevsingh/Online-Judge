@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const express = require("express");
+const cookieParser = require('cookie-parser')
 const app = express();
 
 dotenv.config({ path: "./config.env" });
@@ -7,20 +8,13 @@ dotenv.config({ path: "./config.env" });
 require("./db/connect");
 
 app.use(express.json());
+app.use(cookieParser());
 
-app.use(require("./Router/auth"));
+app.use(require("./router/auth"));
 
 const PORT = process.env.PORT;
 
-const middleware = (req, res, next) => {
-  console.log("Hello my middleware");
-  next();
-};
-
-app.get("/", (req, res) => {
-  res.send("Hello World from the server");
-});
-app.get("/about", middleware, (req, res) => {
+app.get("/questions", (req, res) => {
   res.send("Hello World from the about");
 });
 

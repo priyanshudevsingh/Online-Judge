@@ -1,13 +1,55 @@
-import React from 'react'
-import { NavLink } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 
 const Login = () => {
+  const { state, dispatch } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // connecting login page to backend
+  const PostData = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!data) {
+      window.alert("You're missing some fields");
+      console.log("You're missing some fields");
+    } else if (res.status === 422) {
+      window.alert("You're missing some fields");
+      console.log("You're missing some fields");
+    } else if (res.status === 400) {
+      window.alert("Invalid Credentials");
+      console.log("Invalid Credentials");
+    } else {
+      dispatch({ type: "user", payload: true });
+      window.alert("Login Successful");
+      console.log("Login Successful");
+      navigate("/");
+    }
+  };
+
   return (
     <>
-      <section className='loginpage'>
+      <section className="loginpage">
         <div className="form-box-login">
           <div className="form-value">
-            <form>
+            <form method="POST">
               <h2>Login</h2>
 
               <div className="inputbox">
@@ -16,8 +58,11 @@ const Login = () => {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   required
                   autoComplete="off"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
                 ></input>
               </div>
@@ -28,25 +73,28 @@ const Login = () => {
                 </label>
                 <input
                   type="password"
+                  name="password"
                   required
                   autoComplete="off"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                 ></input>
               </div>
 
               <div className="click">
-                <input type="submit" value="Login" />
+                <input type="submit" value="Login" onClick={PostData} />
               </div>
-
             </form>
 
-            <NavLink className="already" to="/register">Not Registered Yet?</NavLink>
-
+            <NavLink className="already" to="/register">
+              Not Registered Yet?
+            </NavLink>
           </div>
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

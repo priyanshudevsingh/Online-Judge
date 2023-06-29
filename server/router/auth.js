@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const authenticate = require("../middleware/authenticate");
 
 require("../db/connect");
 const User = require("../model/userSchema");
 
+// home route
 router.get("/", (req, res) => {
   res.send("Hello World from the router server");
 });
@@ -47,7 +49,7 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ error: "You're missing some fields" });
+      return res.status(422).json({ error: "You're missing some fields" });
     }
 
     const userLogin = await User.findOne({ email: email });
@@ -55,17 +57,15 @@ router.post("/login", async (req, res) => {
     if (userLogin) {
       const isMatch = await bcrypt.compare(password, userLogin.password);
 
-      token = await userLogin.generateAuthToken();
-      console.log(token);
-
-      res.cookie("jwtoken", token, {
-        expires: new Date(Date.now() + 25892000000),
-        httpOnly: true,
-      });
-
       if (!isMatch) {
         res.status(400).json({ error: "Invalid Credentials" });
       } else {
+        token = await userLogin.generateAuthToken();
+
+        res.cookie("jwtoken", token, {
+          expires: new Date(Date.now() + 25892000000),
+          httpOnly: true,
+        });
         res.status(201).json({ message: "User Logged in Successfully" });
       }
     } else {
@@ -74,6 +74,17 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+// questions route
+router.get("/questions", authenticate, (req, res) => {
+  res.send(req.rootUser);
+});
+
+// logout route
+router.get("/logout", (req, res) => {
+  res.clearCookie("jwtoken", { path: "/" });
+  res.status(200).send("Logged Out Successfully");
 });
 
 module.exports = router;
