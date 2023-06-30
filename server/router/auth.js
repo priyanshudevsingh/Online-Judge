@@ -6,6 +6,7 @@ const authenticate = require("../middleware/authenticate");
 
 require("../db/connect");
 const User = require("../model/userSchema");
+const Problem = require("../model/probSchema");
 
 // home route
 router.get("/", (req, res) => {
@@ -76,9 +77,27 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// questions route
-router.get("/questions", authenticate, (req, res) => {
-  res.send(req.rootUser);
+// problems getter route
+router.get("/problems", authenticate, async(req, res) => {
+  const allProblems= await Problem.find({});
+  res.send(allProblems);
+});
+
+// problem adder route
+router.post("/addproblems", async (req, res) => {
+  const { name, statement, difficulty, tag } = req.body;
+
+  if (!name || !statement || !difficulty || !tag) {
+    return res.status(422).json({ error: "You're missing some fields" });
+  }
+
+  try {
+    const problem = new Problem({ name, statement, difficulty, tag });
+    await problem.save();
+    res.status(201).json({ message: "Problem Added Successfully" });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // logout route

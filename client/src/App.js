@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import NavBar from "./Components/NavBar";
 import Home from "./Components/Home";
-import Questions from "./Components/Questions";
+import Problems from "./Components/Problems";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Logout from "./Components/Logout";
@@ -21,7 +21,7 @@ const App = () => {
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/questions" element={<Questions />} />
+            <Route path="/problems" element={<Problems />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
