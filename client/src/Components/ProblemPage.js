@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom'
 
 const ProblemPage = () => {
+  const { pid } = useParams() ;
+  const cleanId = pid.substring(1) ;
   const [problem, setProblem] = useState();
   const callProblems = async () => {
     try {
-      const res = await fetch("/problems", {
+      const res = await fetch(`/problem/` + cleanId, {
         method: "GET",
         headers: {
           Accept: "application/json",

@@ -4,6 +4,7 @@ import "./App.css";
 import NavBar from "./Components/NavBar";
 import Home from "./Components/Home";
 import Problems from "./Components/Problems";
+import ProblemsPage from "./Components/ProblemPage";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Logout from "./Components/Logout";
@@ -22,6 +23,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/problems" element={<Problems />} />
+            <Route path="/problems/:pid/" element={<ProblemsPage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />

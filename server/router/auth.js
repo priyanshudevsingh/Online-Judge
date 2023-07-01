@@ -78,26 +78,64 @@ router.post("/login", async (req, res) => {
 });
 
 // problems getter route
-router.get("/problems", authenticate, async(req, res) => {
-  const allProblems= await Problem.find({});
+router.get("/problems", authenticate, async (req, res) => {
+  const allProblems = await Problem.find({});
   res.send(allProblems);
 });
 
 // problem adder route
 router.post("/addproblems", async (req, res) => {
-  const { problemid, name, statement, difficulty, tag, constraints, sinput, soutput } = req.body;
+  const {
+    problemid,
+    name,
+    statement,
+    difficulty,
+    tag,
+    constraints,
+    sinput,
+    soutput,
+  } = req.body;
 
-  if (!problemid || !name || !statement || !difficulty || !tag || !constraints || !sinput || !soutput) {
+  if (
+    !problemid ||
+    !name ||
+    !statement ||
+    !difficulty ||
+    !tag ||
+    !constraints ||
+    !sinput ||
+    !soutput
+  ) {
     return res.status(422).json({ error: "You're missing some fields" });
   }
 
   try {
-    const problem = new Problem({ problemid, name, statement, difficulty, tag, constraints, sinput, soutput });
+    const problem = new Problem({
+      problemid,
+      name,
+      statement,
+      difficulty,
+      tag,
+      constraints,
+      sinput,
+      soutput,
+    });
     await problem.save();
     res.status(201).json({ message: "Problem Added Successfully" });
   } catch (err) {
     console.log(err);
   }
+});
+
+// problem page getter route
+router.get("/problem/:id", async (req, res) => {
+  const id = req.params.id;
+  const problem = await Problem.findOne({problemid: id});
+
+  if (!problem) {
+    return res.status(411).json({});
+  }
+  res.send(problem);
 });
 
 // logout route
