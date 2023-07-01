@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Problems = () => {
-  const navigate = useNavigate();
-
-  const [problem, setProblem]=useState();
+  const [problem, setProblem] = useState();
   const callProblems = async () => {
     try {
       const res = await fetch("/problems", {
@@ -26,8 +24,6 @@ const Problems = () => {
       }
     } catch (err) {
       console.log(err);
-      navigate("/register");
-      //window.alert("Register/Login First");
     }
   };
 
@@ -36,24 +32,26 @@ const Problems = () => {
   });
 
   return (
-  <>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Topic Tag</th>
-        <th>Difficulty</th>
-      </tr>
-      {problem?.map(i=>{
-        return(
-          <tr>
-            <td>{i.name}</td>
-            <td>{i.tag}</td>
-            <td>{i.difficulty}</td>
-          </tr>
-        )
-      })}
-    </table>
-  </>
+    <>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Topic Tag</th>
+          <th>Difficulty</th>
+        </tr>
+        {problem?.map((i) => {
+          return (
+            <tr>
+              <NavLink to={`/problems/:${i.problemid}`}>
+                <td>{i.name}</td>
+              </NavLink>
+              <td>{i.tag}</td>
+              <td>{i.difficulty}</td>
+            </tr>
+          );
+        })}
+      </table>
+    </>
   );
 };
 

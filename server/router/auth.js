@@ -85,14 +85,14 @@ router.get("/problems", authenticate, async(req, res) => {
 
 // problem adder route
 router.post("/addproblems", async (req, res) => {
-  const { name, statement, difficulty, tag } = req.body;
+  const { problemid, name, statement, difficulty, tag, constraints, sinput, soutput } = req.body;
 
-  if (!name || !statement || !difficulty || !tag) {
+  if (!problemid || !name || !statement || !difficulty || !tag || !constraints || !sinput || !soutput) {
     return res.status(422).json({ error: "You're missing some fields" });
   }
 
   try {
-    const problem = new Problem({ name, statement, difficulty, tag });
+    const problem = new Problem({ problemid, name, statement, difficulty, tag, constraints, sinput, soutput });
     await problem.save();
     res.status(201).json({ message: "Problem Added Successfully" });
   } catch (err) {

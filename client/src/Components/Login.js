@@ -37,7 +37,7 @@ const Login = () => {
       window.alert("Invalid Credentials");
       console.log("Invalid Credentials");
     } else {
-      dispatch({ type: "user", payload: true });
+      dispatch({ type: "user", payload: false });
       window.alert("Login Successful");
       console.log("Login Successful");
       navigate("/");

@@ -25,7 +25,10 @@ const NavBar = () => {
                 <NavLink to="/problems">Problems</NavLink>
               </li>
               <li>
-                <NavLink to="/logout">Logout</NavLink>
+                <NavLink to="/register">Register</NavLink>
+              </li>
+              <li>
+                <NavLink to="/login">Login</NavLink>
               </li>
             </ul>
           </div>
@@ -48,23 +51,21 @@ const NavBar = () => {
               <li>
                 <NavLink to="/problems">Problems</NavLink>
               </li>
+
               <li>
-                <NavLink to="/register">Register</NavLink>
-              </li>
-              <li>
-                <NavLink to="/login">Login</NavLink>
+                <NavLink to="/logout">Logout</NavLink>
               </li>
             </ul>
           </div>
         </>
       );
     }
-  }
+  };
 
   return (
     <>
       <nav>
-        <RenderMenu/>
+        <RenderMenu />
       </nav>
     </>
   );

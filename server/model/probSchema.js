@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const probSchema = new mongoose.Schema({
+  problemid: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -14,6 +18,18 @@ const probSchema = new mongoose.Schema({
     required: true,
   },
   tag: {
+    type: String,
+    required: true,
+  },
+  constraints: {
+    type: String,
+    required: true,
+  },
+  sinput: {
+    type: String,
+    required: true,
+  },
+  soutput: {
     type: String,
     required: true,
   },
