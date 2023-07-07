@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Problems = () => {
+  const navigate = useNavigate();
   const [problem, setProblem] = useState();
   const callProblems = async () => {
     try {
@@ -24,6 +25,7 @@ const Problems = () => {
       }
     } catch (err) {
       console.log(err);
+      navigate("/login");
     }
   };
 

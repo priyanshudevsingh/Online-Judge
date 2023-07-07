@@ -1,122 +1,121 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'poppins',sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "poppins", sans-serif;
 }
 
 /* Login & Register Page CSS start */
-.loginpage{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 87.5vh;
-    width: 100%;
-    background-color: #17cf97;
+.loginpage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 87.5vh;
+  width: 100%;
+  background-color: #17cf97;
 }
 
-.registerpage{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-    background-color: #17cf97;
+.registerpage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #17cf97;
 }
 
-.logoutpage{
-    min-height: 100vh;
-    width: 100%;
-    background-color: #17cf97;
+.logoutpage {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #17cf97;
 }
 
-.form-box-register{
-    position: relative;
-    width: 450px;
-    height: 550px;
-    background: transparent;
-    border: 2px solid rgba(255,255,255,0.5);
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+.form-box-register {
+  position: relative;
+  width: 450px;
+  height: 550px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.form-box-login{
-    position: relative;
-    width: 450px;
-    height: 350px;
-    background: transparent;
-    border: 2px solid rgba(255,255,255,0.5);
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.form-box-login {
+  position: relative;
+  width: 450px;
+  height: 350px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-h2{
-    text-align: center;
+h2 {
+  text-align: center;
 }
 
-.inputbox{
-    position: relative;
-    margin: 25px 0;
-    width: 300px;
-    border-bottom: 2px solid #fff;
+.inputbox {
+  position: relative;
+  margin: 25px 0;
+  width: 300px;
+  border-bottom: 2px solid #fff;
 }
 
-.inputbox label{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    color: #fff;
-    font-size: 1em;
-    pointer-events: none;
-    transition: .5s;
+.inputbox label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 1em;
+  pointer-events: none;
+  transition: 0.5s;
 }
 
 input:focus ~ label,
-input:valid ~ label{
-top: -5px;
+input:valid ~ label {
+  top: -5px;
 }
 .inputbox input {
-    width: 100%;
-    height: 50px;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    padding:0 35px 0 5px;
-    color: #fff;
+  width: 100%;
+  height: 50px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  padding: 0 35px 0 5px;
+  color: #fff;
 }
 
-.click input{
-    width: 100%;
-    height: 40px;
-    border-radius: 40px;
-    background: #1b2430;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    color: #fff;
+.click input {
+  width: 100%;
+  height: 40px;
+  border-radius: 40px;
+  background: #1b2430;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  color: #fff;
 }
 
-.material-symbols-outlined{
-    position: absolute;
-    right: 8px;
-    color:#1b2430;
-    font-size: 1.7em;
+.material-symbols-outlined {
+  position: absolute;
+  right: 8px;
+  color: #1b2430;
+  font-size: 1.7em;
 }
 
 .already {
-    margin: 5px;
-    display: flex;
-    justify-content: right;
-  }
+  margin: 5px;
+  display: flex;
+  justify-content: right;
+}
 /* Login & Register Page CSS end */
 
 /* NavBar CSS start */
@@ -129,38 +128,47 @@ nav {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
 
-#navbar{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0px;
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
 }
 
-#navbar li{
-    list-style: none;
-    padding: 0px 20px;
-    position: relative;
+#navbar li {
+  list-style: none;
+  padding: 0px 20px;
+  position: relative;
 }
 
-#navbar li a{
-    text-decoration: none;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: #fff;
-    transition: 0.3s ease-in-out;
+#navbar li a {
+  text-decoration: none;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fff;
+  transition: 0.3s ease-in-out;
 }
 
-#navbar li a:hover{
-    color: #17cf97;
+#navbar li a:hover {
+  color: #17cf97;
 }
 
-#navbar li a:hover::after{
-    content: "";
-    width: 30%;
-    height: 2px;
-    background-color: #17cf97;
-    position: absolute;
-    bottom: -4px;
-    left: 20px;
+#navbar li a:hover::after {
+  content: "";
+  width: 30%;
+  height: 2px;
+  background-color: #17cf97;
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
 }
 /* NavBar CSS end */
+
+.text-container {
+  max-height: 12000px;
+  overflow-y: auto;
+}
+
+pre {
+  white-space: pre-wrap;
+}

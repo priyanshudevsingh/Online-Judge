@@ -3,10 +3,13 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const authenticate = require("../middleware/authenticate");
+const generateFile = require("../compilerUtils/generateFile");
+const executeCode = require("../compilerUtils/execCode");
 
 require("../db/connect");
 const User = require("../model/userSchema");
 const Problem = require("../model/probSchema");
+const Submission = require("../model/submissionSchema");
 
 // home route
 router.get("/", (req, res) => {
@@ -84,7 +87,7 @@ router.get("/problems", authenticate, async (req, res) => {
 });
 
 // problem adder route
-router.post("/addproblems", async (req, res) => {
+router.post("/addproblems", authenticate, async (req, res) => {
   const {
     problemid,
     name,
@@ -128,20 +131,75 @@ router.post("/addproblems", async (req, res) => {
 });
 
 // problem page getter route
-router.get("/problem/:id", async (req, res) => {
-  const id = req.params.id;
-  const problem = await Problem.findOne({problemid: id});
+router.get("/problem/:id", authenticate, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const problem = await Problem.findOne({ problemid: id });
 
-  if (!problem) {
-    return res.status(411).json({});
+    if (!problem) {
+      return res
+        .status(500)
+        .json({ error: "Can't able to extract data from DB" });
+    }
+
+    res.send(problem);
+  } catch (error) {
+    console.error(error);
   }
-  res.send(problem);
+});
+
+// userdata getter route
+router.get("/userdata", authenticate, async (req, res) => {
+  try {
+    res.send(req.userdata);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 // logout route
 router.get("/logout", (req, res) => {
   res.clearCookie("jwtoken", { path: "/" });
   res.status(200).send("Logged Out Successfully");
+});
+
+// code runner route
+router.post("/run", async (req, res) => {
+  const { lang, code } = req.body;
+  if (!code) {
+    return res.status(404).json({ error: "Please enter some code" });
+  }
+
+  try {
+    const filePath = await generateFile(lang, code);
+    const output = await executeCode(filePath, lang);
+    res.json({ filePath, output });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+// submission adder route
+router.post("/submission", async (req, res) => {
+  const { problemid, lang, code, userid, verdict } = req.body;
+
+  if (!code) {
+    return res.status(422).json({ error: "Write some code" });
+  }
+
+  try {
+    const submission = new Submission({
+      problemid,
+      lang,
+      code,
+      userid,
+      verdict,
+    });
+    await submission.save();
+    res.status(201).json({ message: "Code Submitted Successfully" });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

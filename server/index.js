@@ -9,6 +9,7 @@ require("./db/connect");
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({extended: true}));
 
 app.use(require("./router/auth"));
 
