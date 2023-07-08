@@ -97,7 +97,7 @@ const ProblemPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          lang: "cpp",
+          lang: selectedLanguage,
           code: code,
           input: input,
           type: "run",
@@ -157,7 +157,7 @@ const ProblemPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          lang: "cpp",
+          lang: selectedLanguage,
           code: code,
           input: problem.intestcase,
           type: "submit",
@@ -192,7 +192,7 @@ const ProblemPage = () => {
       }
 
       if (modout === problem.outtestcase) verdict = "Accepted";
-      else verdict = "Wrong Answer";
+      else verdict = "Wrong_Answer";
       setCodeout("");
       setVer(verdict);
       console.log(verdict);
@@ -221,69 +221,79 @@ const ProblemPage = () => {
 
   return (
     <>
-      {problem ? (
-        <div>
-          <div>
-            <p className="text-container">{problem.name}</p>
-            <p>Description</p>
-            <pre>{descrip}</pre>
-            <p>Constraints</p>
-            <pre>{constr}</pre>
-            <p>Sample Testcase</p>
-            <code>Input: </code>
-            <pre>{input}</pre>
-            <code>Output: </code>
-            <pre>{output}</pre>
-          </div>
-
-          <div>
-            <label htmlFor="language">Select your love language: </label>
-            <select
-              value={selectedLanguage}
-              onChange={(event) => setSelectedLanguage(event.target.value)}
-            >
-              <option value="">Select</option>
-              <option value="cpp">C++</option>
-              <option value="java">Java</option>
-              <option value="python">Python</option>
-            </select>
-          </div>
-
-          <div>
-            <p>Code Here</p>
-            <div>
-              <textarea
-                rows="20"
-                cols="75"
-                onChange={(e) => setCode(e.target.value)}
-              ></textarea>
-              <button type="submit" onClick={handleRun}>
-                Run Code
-              </button>
-              <button type="submit" onClick={handleSubmit}>
-                Submit Code
-              </button>
-
-              {codeout && (
+      <section className="problempage">
+        {problem ? (
+          <div className="page-content">
+            <div className="ques">
+              <p className={problem.difficulty + "hehe"}>{problem.name}</p>
+              <p className="des">Description</p>
+              <pre>{descrip}</pre>
+              <p className="cons">Constraints</p>
+              <pre>{constr}</pre>
+              <p className="stc">Sample Testcase</p>
+              <div className="flexforstc">
                 <div>
-                  <p>Your Output</p>
-                  <pre>{codeout}</pre>
-                  <p>Expected Output</p>
+                  <p className="ini">Input: </p>
+                  <pre>{input}</pre>
+                </div>
+                <div className="out">
+                  <p className="outi">Output: </p>
                   <pre>{output}</pre>
                 </div>
-              )}
+              </div>
+            </div>
 
-              {ver && (
-                <div>
-                  <p>Verdict: {ver}</p>
-                </div>
-              )}
+            <div className="code">
+              <div className="slang">
+                <label htmlFor="language" className="label">
+                  Select Language{" "}
+                </label>
+                <select
+                  value={selectedLanguage}
+                  className="select"
+                  onChange={(event) => setSelectedLanguage(event.target.value)}
+                >
+                  <option value="">Select</option>
+                  <option value="cpp">C++</option>
+                  <option value="java">Java</option>
+                  <option value="python">Python</option>
+                </select>
+              </div>
+
+              <div>
+                <textarea onChange={(e) => setCode(e.target.value)}></textarea>
+                <button type="submit" id="test" onClick={handleRun}>
+                  Run Code
+                </button>
+                <button type="submit" id="submit" onClick={handleSubmit}>
+                  Submit Code
+                </button>
+
+                {codeout && (
+                  <div>
+                    <p className="yout">Your Output</p>
+                    <pre>{codeout}</pre>
+                    <p className="eout">Expected Output</p>
+                    <pre>{output}</pre>
+                  </div>
+                )}
+
+                {ver && (
+                  <div className="verdiv">
+                    <span className="vertext">Verdict: </span>
+                    {ver === "Wrong_Answer" && (
+                      <span className="wa">Wrong Answer</span>
+                    )}
+                    {ver === "Accepted" && <span className="ac">Accepted</span>}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div>Loading...</div>
-      )}
+        ) : (
+          <div>Loading...</div>
+        )}
+      </section>
     </>
   );
 };

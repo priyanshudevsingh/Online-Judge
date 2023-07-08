@@ -31,28 +31,34 @@ const Problems = () => {
 
   useEffect(() => {
     callProblems();
-  });
+  }, []);
 
   return (
     <>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Topic Tag</th>
-          <th>Difficulty</th>
-        </tr>
-        {problem?.map((i) => {
-          return (
+      <section className="problemtable">
+        <table className="content-table">
+          <thead>
             <tr>
-              <NavLink to={`/problems/:${i.problemid}`}>
-                <td>{i.name}</td>
-              </NavLink>
-              <td>{i.tag}</td>
-              <td>{i.difficulty}</td>
+              <th>Name</th>
+              <th>Topic Tag</th>
+              <th>Difficulty</th>
             </tr>
-          );
-        })}
-      </table>
+          </thead>
+          <tbody>
+            {problem?.map((i) => {
+              return (
+                <tr>
+                  <NavLink to={`/problems/:${i.problemid}`}>
+                    <td>{i.name}</td>
+                  </NavLink>
+                  <td>{i.tag}</td>
+                  <td className={i.difficulty}>{i.difficulty}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </section>
     </>
   );
 };

@@ -40,6 +40,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 5);
 }
 
 .form-box-login {
@@ -52,6 +53,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 5);
 }
 
 h2 {
@@ -125,7 +127,6 @@ nav {
   justify-content: space-between;
   background-color: #1b2430;
   padding: 9px 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
 
 #navbar {
@@ -164,11 +165,286 @@ nav {
 }
 /* NavBar CSS end */
 
-.text-container {
+/* Problems table CSS start */
+.problemtable {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 87.5vh;
+  width: 100%;
+  background-color: #1b2430;
+}
+.content-table {
+  border-collapse: collapse;
+  margin: 10px auto;
+  font-size: 0.9em;
+  min-width: 1000px;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+  box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);
+  justify-content: center;
+  align-items: center;
+}
+
+.content-table thead tr {
+  background-color: #17cf97;
+  color: #1b2430;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 10px 15px;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #e3e1e1;
+}
+
+.content-table tbody tr:nth-of-type(odd) {
+  background-color: #ffffff;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 3.5px solid #17cf97;
+}
+
+.content-table a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.content-table a:hover {
+  color: #17cf97;
+}
+
+.Easy {
+  color: #3bc240;
+  font-weight: bold;
+}
+
+.Medium {
+  color: #f1a824;
+  font-weight: bold;
+}
+
+.Hard {
+  color: #d23636;
+  font-weight: bold;
+}
+/* Problems table CSS end */
+
+/* Problem Page CSS start */
+.Easyhehe {
   max-height: 12000px;
   overflow-y: auto;
+  color: #3bc240;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.Mediumhehe {
+  max-height: 12000px;
+  overflow-y: auto;
+  color: #f1a824;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.Hardhehe {
+  max-height: 12000px;
+  overflow-y: auto;
+  color: #d23636;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 pre {
   white-space: pre-wrap;
+  color: #e3e1e1;
 }
+
+.problempage {
+  display: flex;
+  background-color: #1b2430;
+}
+
+.des,
+.cons,
+.stc,
+.slang,
+.yout,
+.eout {
+  color: #17cf97;
+  font-size: 1.2em;
+  margin: 0;
+  font-weight: bold;
+}
+
+.ques {
+  margin: 0;
+  padding: 0px 5px 0 15px;
+}
+
+.flexforstc {
+  display: flex;
+}
+
+.ini,
+.outi {
+  color: #18beca;
+  margin: 0;
+}
+.out {
+  padding: 0 0 0 100px;
+}
+
+.page-content {
+  min-height: 87.5vh;
+  display: flex;
+}
+
+textarea {
+  height: 69vh;
+  width: 100vh;
+  background-color: #1b2430;
+  border-radius: 10px;
+  border: 2px solid #9d9b9b;
+  color: #e3e1e1;
+  box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);
+}
+
+#test,
+#submit {
+  padding: 5px 10px 5px 10px;
+  margin-right: 20px;
+  font-weight: bold;
+  border-radius: 20px 20px 20px 20px;
+  cursor: pointer;
+}
+
+#test {
+  background-color: #9d9b9b;
+}
+#submit {
+  background-color: #289ba3;
+}
+
+.slang {
+  display: flex;
+  align-items: center;
+  margin: 0 0 5px 0;
+}
+
+.label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.select {
+  border-radius: 10px;
+  border: 2px solid #9d9b9b;
+  background-color: #1b2430;
+  color: #fff;
+}
+
+.verdiv {
+  padding: 10px 0 0 0;
+}
+
+.vertext {
+  color: #289ba3;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.wa {
+  color: #ff0f1e;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.ac {
+  color: #07ac07;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+/*Problem Page CSS end */
+
+/* Home Page CSS start */
+.homepage {
+  background-color: #1b2430;
+  min-height: 87.5vh;
+}
+
+.text1 {
+  color: #c5c5c5;
+  text-align: center;
+  margin: 0;
+  padding: 0px 10px 0 10px;
+  font-weight: bold;
+}
+
+.text2 {
+  color: #c5c5c5;
+  text-align: center;
+  margin: 0;
+  padding: 20px 10px 0 10px;
+  font-weight: bold;
+}
+
+.text3 {
+  color: #c5c5c5;
+  text-align: center;
+  margin: 0;
+  padding: 10px 10px 20px 10px;
+}
+
+.text4 {
+  color: #c5c5c5;
+  text-align: center;
+  margin: 0;
+  padding: 0 10px 10px 10px;
+}
+
+@keyframes colorChange {
+  0% {
+    color: #04ff0d;
+  }
+  25% {
+    color: #00eeff;
+  }
+  50% {
+    color: #ffa600;
+  }
+  75% {
+    color: #ff00ee;
+  }
+  100% {
+    color: #fda400;
+  }
+}
+
+.tuoj {
+  animation: colorChange 3s infinite;
+  font-weight: bold;
+}
+
+.dogmeme {
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);
+  border-radius: 20px 20px 20px 20px;
+}
+
+.redirectbut {
+  display: block;
+  margin: 0 auto;
+  padding: 5px 10px 5px 10px;
+  font-weight: bold;
+  border-radius: 20px 20px 20px 20px;
+  cursor: pointer;
+  background-color: #17cf97;
+  box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);
+}
+/* Home Page CSS end */
