@@ -33,6 +33,14 @@ const probSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  intestcase: {
+    type: String,
+    required: true,
+  },
+  outtestcase: {
+    type: String,
+    required: true,
+  },
 });
 
 const Problem = mongoose.model("problems", probSchema);

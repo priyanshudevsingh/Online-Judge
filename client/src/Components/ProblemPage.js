@@ -15,7 +15,11 @@ const ProblemPage = () => {
   const [code, setCode] = useState("");
   const [codeout, setCodeout] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [ver, setVer] = useState("");
 
+  let verdict = "";
+
+  // for getting problem data
   const callProblems = async () => {
     try {
       const res = await fetch(`/problem/` + cleanId, {
@@ -52,6 +56,7 @@ const ProblemPage = () => {
     }
   };
 
+  // for getting current logged in user data
   const callUserid = async () => {
     try {
       const res = await fetch("/userdata", {
@@ -75,8 +80,11 @@ const ProblemPage = () => {
     callUserid();
   });
 
-  const handleRun = async () => {
+  // for run button
+  const handleRun = async (e) => {
     try {
+      e.preventDefault();
+      setVer("");
       if (selectedLanguage === "") {
         window.alert("Please select a language first");
       }
@@ -91,6 +99,8 @@ const ProblemPage = () => {
         body: JSON.stringify({
           lang: "cpp",
           code: code,
+          input: input,
+          type: "run",
         }),
       });
 
@@ -98,13 +108,112 @@ const ProblemPage = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        setCodeout(errorData.error.stderr);
         console.log(errorData);
+        setCodeout(errorData.error.stderr);
       }
 
       const data = await response.json();
       console.log(data);
-      setCodeout(data.output);
+
+      const newOut = data.output;
+      const norows = newOut.split("\r\n");
+      const allnorows = norows.join("\n");
+
+      // formatting the output so that it matches DBoutput
+      let modout = allnorows;
+      if (modout.slice(-2) === "\r\n") {
+        modout = modout.slice(0, -2);
+      }
+      if (modout.slice(-1) === "\n") {
+        modout = modout.slice(0, -1);
+      }
+      if (modout.slice(-1) === " ") {
+        modout = modout.slice(0, -1);
+      }
+
+      setCodeout(modout);
+      if (modout === output) console.log("yayyy");
+      else console.log("nope");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // for submit button
+  const handleSubmit = async (e) => {
+    try {
+      // first code running
+      e.preventDefault();
+      setVer("");
+      if (selectedLanguage === "") {
+        window.alert("Please select a language first");
+      }
+      if (code === "") {
+        window.alert("First write some code");
+      }
+      const response = await fetch("/run", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          lang: "cpp",
+          code: code,
+          input: problem.intestcase,
+          type: "submit",
+        }),
+      });
+
+      console.log(code);
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log(errorData);
+        verdict = "Compilation Error";
+        setCodeout(errorData.error.stderr);
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      const newOut = data.output;
+      const norows = newOut.split("\r\n");
+      const allnorows = norows.join("\n");
+
+      // formatting the output so that it matches DBoutput
+      let modout = allnorows;
+      if (modout.slice(-2) === "\r\n") {
+        modout = modout.slice(0, -2);
+      }
+      if (modout.slice(-1) === "\n") {
+        modout = modout.slice(0, -1);
+      }
+      if (modout.slice(-1) === " ") {
+        modout = modout.slice(0, -1);
+      }
+
+      if (modout === problem.outtestcase) verdict = "Accepted";
+      else verdict = "Wrong Answer";
+      setCodeout("");
+      setVer(verdict);
+      console.log(verdict);
+
+      // now adding submission to the DB
+      const res = await fetch("/submission", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          problemid: cleanId,
+          lang: selectedLanguage,
+          code: code,
+          userid: userId,
+          verdict: verdict,
+        }),
+      });
+
+      const subdata = await res.json();
+      console.log(subdata);
     } catch (error) {
       console.log(error);
     }
@@ -115,7 +224,7 @@ const ProblemPage = () => {
       {problem ? (
         <div>
           <div>
-            <p>{problem.name}</p>
+            <p className="text-container">{problem.name}</p>
             <p>Description</p>
             <pre>{descrip}</pre>
             <p>Constraints</p>
@@ -130,7 +239,6 @@ const ProblemPage = () => {
           <div>
             <label htmlFor="language">Select your love language: </label>
             <select
-              id="language"
               value={selectedLanguage}
               onChange={(event) => setSelectedLanguage(event.target.value)}
             >
@@ -152,33 +260,22 @@ const ProblemPage = () => {
               <button type="submit" onClick={handleRun}>
                 Run Code
               </button>
-              <button
-                type="submit"
-                onClick={async () => {
-                  const res = await fetch("/submission", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      problemid: cleanId,
-                      lang: selectedLanguage,
-                      code: code,
-                      userid: userId,
-                      verdit: "", //for now leave it empty
-                    }),
-                  });
-
-                  const data = await res.json();
-                  console.log(data);
-                }}
-              >
+              <button type="submit" onClick={handleSubmit}>
                 Submit Code
               </button>
 
               {codeout && (
                 <div>
+                  <p>Your Output</p>
                   <pre>{codeout}</pre>
+                  <p>Expected Output</p>
+                  <pre>{output}</pre>
+                </div>
+              )}
+
+              {ver && (
+                <div>
+                  <p>Verdict: {ver}</p>
                 </div>
               )}
             </div>

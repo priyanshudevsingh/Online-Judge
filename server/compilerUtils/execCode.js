@@ -8,33 +8,67 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-const executeCode = async (filepath, lang) => {
-  let langDir;
-  if (lang === "cpp") langDir = path.join(__dirname, "../outputs/cpp");
-  else if (lang === "java") langDir = path.join(__dirname, "../outputs/java");
-  else if (lang === "py") langDir = path.join(__dirname, "../outputs/py");
-
-  if (!fs.existsSync(langDir)) {
-    fs.mkdirSync(langDir, { recursive: true });
-  }
-
+const executeCode = async (filepath, lang, input, type) => {
   const fileName = path.basename(filepath).split(".")[0];
-  const outPath = path.join(langDir, `${fileName}.exe`);
+
+  // making output directory
+  let langoutDir;
+  if (lang === "cpp") langoutDir = path.join(__dirname, "../outputs/cpp");
+  else if (lang === "java")
+    langoutDir = path.join(__dirname, "../outputs/java");
+  else if (lang === "py") langoutDir = path.join(__dirname, "../outputs/py");
+
+  if (!fs.existsSync(langoutDir)) {
+    fs.mkdirSync(langoutDir, { recursive: true });
+  }
+  const outPath = path.join(langoutDir, `${fileName}.exe`);
   console.log(outPath);
 
+  // making input directory
+  let langinDir;
+  if (lang === "cpp") langinDir = path.join(__dirname, "../inputs/cpp");
+  else if (lang === "java") langinDir = path.join(__dirname, "../inputs/java");
+  else if (lang === "py") langinDir = path.join(__dirname, "../inputs/py");
+
+  if (!fs.existsSync(langinDir)) {
+    fs.mkdirSync(langinDir, { recursive: true });
+  }
+  const inPath = path.join(langinDir, `${fileName}.txt`);
+  console.log(inPath);
+  await fs.writeFileSync(inPath, input);
+
   return new Promise((resolve, reject) => {
-    exec(
-      `g++ ${filepath} -o ${outPath} && cd ${langDir} && .\\${fileName}.exe`,
-      (error, stdout, stderr) => {
-        if (error) {
-          reject({ error, stderr });
+    if (type === "run") {
+      console.log("running");
+
+      exec(
+        `g++ ${filepath} -o ${outPath} && cd ${langoutDir} && .\\${fileName}.exe < ${inPath}`,
+        (error, stdout, stderr) => {
+          if (error) {
+            reject({ error, stderr });
+          }
+          if (stderr) {
+            reject(stderr);
+          }
+          resolve(stdout);
         }
-        if (stderr) {
-          reject(stderr);
+      );
+    } else {
+      console.log("submitting");
+      exec(
+        `g++ ${filepath} -o ${outPath} && cd ${langoutDir} && .\\${fileName}.exe < ${inPath}`,
+        (error, stdout, stderr) => {
+          if (error) {
+            reject({ error, stderr });
+          }
+          if (stderr) {
+            reject(stderr);
+          }
+          resolve(stdout);
         }
-        resolve(stdout);
-      }
-    );
+      );
+      // will add other functionality later
+    }
   });
 };
 

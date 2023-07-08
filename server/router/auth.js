@@ -87,7 +87,7 @@ router.get("/problems", authenticate, async (req, res) => {
 });
 
 // problem adder route
-router.post("/addproblems", authenticate, async (req, res) => {
+router.post("/addproblems", async (req, res) => {
   const {
     problemid,
     name,
@@ -165,14 +165,14 @@ router.get("/logout", (req, res) => {
 
 // code runner route
 router.post("/run", async (req, res) => {
-  const { lang, code } = req.body;
+  const { lang, code, input, type } = req.body;
   if (!code) {
     return res.status(404).json({ error: "Please enter some code" });
   }
 
   try {
     const filePath = await generateFile(lang, code);
-    const output = await executeCode(filePath, lang);
+    const output = await executeCode(filePath, lang, input, type);
     res.json({ filePath, output });
   } catch (error) {
     res.status(500).json({ error: error });

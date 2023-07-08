@@ -17,7 +17,7 @@ const submissionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  verdit: {
+  verdict: {
     type: String,
     required: true,
   },
