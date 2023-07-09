@@ -68,7 +68,7 @@ const Register = () => {
         <div className="form-box-register">
           <div className="form-value">
             <form method="POST">
-              <h2>Register</h2>
+              <h2 className="textr">Register</h2>
 
               <div className="inputbox">
                 <label htmlFor="name">

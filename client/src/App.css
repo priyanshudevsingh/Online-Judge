@@ -12,7 +12,7 @@
   align-items: center;
   min-height: 87.5vh;
   width: 100%;
-  background-color: #17cf97;
+  background-color: #1b2430;
 }
 
 .registerpage {
@@ -21,13 +21,13 @@
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  background-color: #17cf97;
+  background-color: #1b2430;
 }
 
 .logoutpage {
   min-height: 100vh;
   width: 100%;
-  background-color: #17cf97;
+  background-color: #1b2430;
 }
 
 .form-box-register {
@@ -40,7 +40,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 5);
+  box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);
 }
 
 .form-box-login {
@@ -53,11 +53,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 5);
+  box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);
 }
 
-h2 {
+.textr,
+.textl {
   text-align: center;
+  color: #bababa;
+  margin: 0;
 }
 
 .inputbox {
@@ -97,19 +100,19 @@ input:valid ~ label {
   width: 100%;
   height: 40px;
   border-radius: 40px;
-  background: #1b2430;
+  background: #17cf97;
   border: none;
   outline: none;
   cursor: pointer;
   font-size: 1em;
   font-weight: 600;
-  color: #fff;
+  color: #f5f2f2;
 }
 
 .material-symbols-outlined {
   position: absolute;
   right: 8px;
-  color: #1b2430;
+  color: #17cf97;
   font-size: 1.7em;
 }
 
@@ -178,6 +181,7 @@ nav {
   border-collapse: collapse;
   margin: 10px auto;
   font-size: 0.9em;
+  font-weight: bold;
   min-width: 1000px;
   border-radius: 20px 20px 0 0;
   overflow: hidden;
@@ -268,6 +272,7 @@ pre {
 .problempage {
   display: flex;
   background-color: #1b2430;
+  min-height: 87.5vh;
 }
 
 .des,
@@ -328,7 +333,7 @@ textarea {
   background-color: #9d9b9b;
 }
 #submit {
-  background-color: #289ba3;
+  background-color: #17cf97;
 }
 
 .slang {
@@ -368,6 +373,13 @@ textarea {
   color: #07ac07;
   font-size: 1.2em;
   font-weight: bold;
+}
+
+.submilink{
+  color: #a3fbee;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 150px;
 }
 /*Problem Page CSS end */
 

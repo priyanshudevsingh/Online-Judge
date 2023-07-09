@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 
 const ProblemPage = () => {
   const { pid } = useParams();
@@ -192,13 +192,13 @@ const ProblemPage = () => {
       }
 
       if (modout === problem.outtestcase) verdict = "Accepted";
-      else verdict = "Wrong_Answer";
+      else verdict = "Wrong Answer";
       setCodeout("");
       setVer(verdict);
       console.log(verdict);
 
       // now adding submission to the DB
-      const res = await fetch("/submission", {
+      const res = await fetch("/addsubmission", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -268,6 +268,9 @@ const ProblemPage = () => {
                 <button type="submit" id="submit" onClick={handleSubmit}>
                   Submit Code
                 </button>
+                <NavLink className="submilink" to={`/submissions/:${cleanId}`}>
+                  Go to all Submissions
+                </NavLink>
 
                 {codeout && (
                   <div>
@@ -281,7 +284,7 @@ const ProblemPage = () => {
                 {ver && (
                   <div className="verdiv">
                     <span className="vertext">Verdict: </span>
-                    {ver === "Wrong_Answer" && (
+                    {ver === "Wrong Answer" && (
                       <span className="wa">Wrong Answer</span>
                     )}
                     {ver === "Accepted" && <span className="ac">Accepted</span>}
@@ -291,7 +294,7 @@ const ProblemPage = () => {
             </div>
           </div>
         ) : (
-          <div>Loading...</div>
+          <p className="text1">Loading...</p>
         )}
       </section>
     </>

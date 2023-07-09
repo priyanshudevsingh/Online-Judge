@@ -50,7 +50,7 @@ const Login = () => {
         <div className="form-box-login">
           <div className="form-value">
             <form method="POST">
-              <h2>Login</h2>
+              <h2 className="textl">Login</h2>
 
               <div className="inputbox">
                 <label htmlFor="email">

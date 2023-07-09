@@ -5,22 +5,30 @@ const submissionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  lang: {
-    type: String,
-    required: true,
-  },
-  code: {
-    type: String,
-    required: true,
-  },
-  userid: {
-    type: String,
-    required: true,
-  },
-  verdict: {
-    type: String,
-    required: true,
-  },
+  submissions: [
+    {
+      lang: {
+        type: String,
+        required: true,
+      },
+      code: {
+        type: String,
+        required: true,
+      },
+      verdict: {
+        type: String,
+        required: true,
+      },
+      userid: {
+        type: String,
+        required: true,
+      },
+      timestamps: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 });
 
 const Submission = mongoose.model("submissions", submissionSchema);

@@ -2,7 +2,8 @@ import React from "react";
 import dogmeme from "./dog_meme.gif";
 
 const Home = () => {
-  const redirect = () => {
+  const redirect = (e) => {
+    e.preventDefault();
     window.location.href = "/problems";
   };
 
@@ -10,8 +11,8 @@ const Home = () => {
     <>
       <section className="homepage">
         <p className="text4">
-          Welcome to <span className="tuoj">Ultimate Online Judge</span>, a
-          MERN stack-based online judge platform!
+          Welcome to <span className="tuoj">Ultimate Online Judge</span>, a MERN
+          stack-based online judge platform!
         </p>
         <img className="dogmeme" src={dogmeme} alt="dog typing on laptop"></img>
         <p className="text3">

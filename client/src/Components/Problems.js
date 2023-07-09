@@ -36,28 +36,32 @@ const Problems = () => {
   return (
     <>
       <section className="problemtable">
-        <table className="content-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Topic Tag</th>
-              <th>Difficulty</th>
-            </tr>
-          </thead>
-          <tbody>
-            {problem?.map((i) => {
-              return (
-                <tr>
-                  <NavLink to={`/problems/:${i.problemid}`}>
-                    <td>{i.name}</td>
-                  </NavLink>
-                  <td>{i.tag}</td>
-                  <td className={i.difficulty}>{i.difficulty}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        {problem ? (
+          <table className="content-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Topic Tag</th>
+                <th>Difficulty</th>
+              </tr>
+            </thead>
+            <tbody>
+              {problem?.map((i) => {
+                return (
+                  <tr>
+                    <NavLink to={`/problems/:${i.problemid}`}>
+                      <td>{i.name}</td>
+                    </NavLink>
+                    <td>{i.tag}</td>
+                    <td className={i.difficulty}>{i.difficulty}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        ) : (
+          <p className="text1">Loading...</p>
+        )}
       </section>
     </>
   );

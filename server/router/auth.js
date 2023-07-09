@@ -87,6 +87,7 @@ router.get("/problems", authenticate, async (req, res) => {
 });
 
 // problem adder route
+// currently adding problems through postman so not adding authenticate here
 router.post("/addproblems", async (req, res) => {
   const {
     problemid,
@@ -164,7 +165,7 @@ router.get("/logout", (req, res) => {
 });
 
 // code runner route
-router.post("/run", async (req, res) => {
+router.post("/run", authenticate, async (req, res) => {
   const { lang, code, input, type } = req.body;
   if (!code) {
     return res.status(404).json({ error: "Please enter some code" });
@@ -180,7 +181,7 @@ router.post("/run", async (req, res) => {
 });
 
 // submission adder route
-router.post("/submission", async (req, res) => {
+router.post("/addsubmission", authenticate, async (req, res) => {
   const { problemid, lang, code, userid, verdict } = req.body;
 
   if (!code) {
@@ -188,17 +189,40 @@ router.post("/submission", async (req, res) => {
   }
 
   try {
-    const submission = new Submission({
-      problemid,
+    const submission = {
       lang,
       code,
       userid,
       verdict,
-    });
-    await submission.save();
+    };
+
+    const existingSubmission = await Submission.findOne({ problemid });
+    if (existingSubmission) {
+      existingSubmission.submissions.push(submission);
+      await existingSubmission.save();
+    } else {
+      const newSubmission = new Submission({
+        problemid,
+        submissions: [submission],
+      });
+      await newSubmission.save();
+    }
+
     res.status(201).json({ message: "Code Submitted Successfully" });
   } catch (err) {
     console.log(err);
+  }
+});
+
+// submission getter route
+router.get("/submissions/:id", authenticate, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const submission = await Submission.findOne({ problemid: id });
+
+    res.send(submission);
+  } catch (error) {
+    console.error(error);
   }
 });
 
