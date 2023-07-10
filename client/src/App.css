@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 87.5vh;
+  min-height: 89.5vh;
   width: 100%;
   background-color: #1b2430;
 }
@@ -19,7 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 89.5vh;
   width: 100%;
   background-color: #1b2430;
 }
@@ -173,7 +173,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 87.5vh;
+  min-height: 89.5vh;
   width: 100%;
   background-color: #1b2430;
 }
@@ -272,7 +272,8 @@ pre {
 .problempage {
   display: flex;
   background-color: #1b2430;
-  min-height: 87.5vh;
+  min-height: 89.5vh;
+  width: 100%;
 }
 
 .des,
@@ -306,7 +307,8 @@ pre {
 }
 
 .page-content {
-  min-height: 87.5vh;
+  min-height: 89.5vh;
+  width: 100%;
   display: flex;
 }
 
@@ -375,7 +377,7 @@ textarea {
   font-weight: bold;
 }
 
-.submilink{
+.submilink {
   color: #a3fbee;
   text-decoration: none;
   font-weight: bold;
@@ -386,7 +388,8 @@ textarea {
 /* Home Page CSS start */
 .homepage {
   background-color: #1b2430;
-  min-height: 87.5vh;
+  min-height: 89.5vh;
+  width: 100%;
 }
 
 .text1 {
@@ -427,13 +430,13 @@ textarea {
     color: #00eeff;
   }
   50% {
-    color: #ffa600;
+    color: #ffc965;
   }
   75% {
-    color: #ff00ee;
+    color: #ff6df5;
   }
   100% {
-    color: #fda400;
+    color: #9bff82;
   }
 }
 
@@ -460,3 +463,39 @@ textarea {
   box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);
 }
 /* Home Page CSS end */
+
+/* View Code CSS start */
+.code-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(
+    2px
+  ); /* for safari browser (i mean who use it nowadays but google says so) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.code-popup {
+  background-color: #1b2430;
+  padding: 2px 20px 20px 20px;
+  border-radius: 5px;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);
+}
+
+.code-popup pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.code-popup button {
+  margin-top: 10px;
+}
+/* View Code CSS end */

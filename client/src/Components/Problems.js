@@ -31,7 +31,7 @@ const Problems = () => {
 
   useEffect(() => {
     callProblems();
-  }, []);
+  });
 
   return (
     <>

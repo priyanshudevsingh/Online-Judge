@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 const Submissions = () => {
@@ -6,6 +6,11 @@ const Submissions = () => {
   const cleanId = pid.substring(1);
 
   const [submission, setSubmission] = useState();
+  const [showCode, setShowCode] = useState(false);
+  const [code, setCode] = useState("");
+
+  const overlayRef = useRef(null);
+
   const callSubmissions = async () => {
     try {
       const res = await fetch(`/submissions/` + cleanId, {
@@ -57,7 +62,32 @@ const Submissions = () => {
 
   useEffect(() => {
     callSubmissions();
-  }, []);
+  });
+
+  const handleCodeClick = (code) => {
+    setCode(code);
+    setShowCode(true);
+  };
+
+  const handleOverlayClick = (event) => {
+    if (event.target === overlayRef.current) {
+      setShowCode(false);
+    }
+  };
+
+  const CodePopup = () => {
+    return (
+      <div
+        className="code-popup-overlay"
+        onClick={handleOverlayClick}
+        ref={overlayRef}
+      >
+        <div className="code-popup">
+          <pre>{code}</pre>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -73,46 +103,54 @@ const Submissions = () => {
               </tr>
             </thead>
             <tbody>
-              {submission?.map((i) => {
-                return (
-                  <tr>
-                    <td>{i.userid}</td>
+              {submission
+                .slice()
+                .reverse()
+                ?.map((i) => {
+                  return (
+                    <tr>
+                      <td>{i.userid}</td>
 
-                    {i.lang === "cpp" && <td>C++</td>}
-                    {i.lang === "java" && <td>Java</td>}
-                    {i.lang === "py" && <td>Python</td>}
+                      {i.lang === "cpp" && <td>C++</td>}
+                      {i.lang === "java" && <td>Java</td>}
+                      {i.lang === "py" && <td>Python</td>}
 
-                    {i.verdict === "Wrong Answer" && (
-                      <td
-                        style={{
-                          fontSize: "0.91em",
-                          color: "#ff0f1e",
-                        }}
-                      >
-                        Wrong Answer
-                      </td>
-                    )}
-                    {i.verdict === "Accepted" && (
-                      <td
-                        style={{
-                          fontSize: "0.91em",
-                          color: "#07ac07",
-                        }}
-                      >
-                        Accepted
-                      </td>
-                    )}
+                      {i.verdict === "Wrong Answer" && (
+                        <td
+                          style={{
+                            fontSize: "0.91em",
+                            color: "#ff0f1e",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => handleCodeClick(i.code)}
+                        >
+                          Wrong Answer
+                        </td>
+                      )}
+                      {i.verdict === "Accepted" && (
+                        <td
+                          style={{
+                            fontSize: "0.91em",
+                            color: "#07ac07",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => handleCodeClick(i.code)}
+                        >
+                          Accepted
+                        </td>
+                      )}
 
-                    <td>{calculateAgoTime(i.timestamps)}</td>
-                  </tr>
-                );
-              })}
+                      <td>{calculateAgoTime(i.timestamps)}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         ) : (
           <p className="text1">No Submission Found</p>
         )}
       </section>
+      {showCode && <CodePopup />}
     </>
   );
 };
