@@ -1,10 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { UserContext } from "../App";
 
-const Login = () => {
-  const { state, dispatch } = useContext(UserContext);
-
+const Login = ({ handleAuthChange }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -37,10 +34,10 @@ const Login = () => {
       window.alert("Invalid Credentials");
       console.log("Invalid Credentials");
     } else {
-      dispatch({ type: "user", payload: false });
       window.alert("Login Successful");
       console.log("Login Successful");
       navigate("/");
+      handleAuthChange(true);
     }
   };
 

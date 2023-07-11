@@ -120,6 +120,8 @@ input:valid ~ label {
   margin: 5px;
   display: flex;
   justify-content: right;
+  color: #a3fbee;
+  text-decoration: underline;
 }
 /* Login & Register Page CSS end */
 
@@ -181,7 +183,6 @@ nav {
   border-collapse: collapse;
   margin: 10px auto;
   font-size: 0.9em;
-  font-weight: bold;
   min-width: 1000px;
   border-radius: 20px 20px 0 0;
   overflow: hidden;
@@ -194,7 +195,6 @@ nav {
   background-color: #17cf97;
   color: #1b2430;
   text-align: left;
-  font-weight: bold;
 }
 
 .content-table th,
@@ -215,7 +215,8 @@ nav {
 }
 
 .content-table a {
-  text-decoration: none;
+  text-decoration: underline;
+  color: #3481e7;
   font-weight: bold;
 }
 
@@ -267,6 +268,8 @@ nav {
 pre {
   white-space: pre-wrap;
   color: #e3e1e1;
+  font-size: 0.9em;
+  font-family: "Source Code Pro", Menlo, monospace;
 }
 
 .problempage {
@@ -276,21 +279,31 @@ pre {
   width: 100%;
 }
 
-.des,
-.cons,
-.stc,
-.slang,
-.yout,
-.eout {
-  color: #17cf97;
-  font-size: 1.2em;
-  margin: 0;
-  font-weight: bold;
-}
-
 .ques {
   margin: 0;
   padding: 0px 5px 0 15px;
+}
+
+.des {
+  color: #17cf97;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 15px 0 0 0;
+}
+
+.cons,
+.stc {
+  color: #17cf97;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 0 0 0;
+}
+
+.yout,
+.eout{
+  color: #17cf97;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 
 .flexforstc {
@@ -320,6 +333,7 @@ textarea {
   border: 2px solid #9d9b9b;
   color: #e3e1e1;
   box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);
+  font-family: "Courier New", Courier, monospace;
 }
 
 #test,
@@ -339,6 +353,7 @@ textarea {
 }
 
 .slang {
+  color: #17cf97;
   display: flex;
   align-items: center;
   margin: 0 0 5px 0;
@@ -361,31 +376,36 @@ textarea {
 }
 
 .vertext {
-  color: #289ba3;
-  font-size: 1.2em;
+  color: #17cf97;
+  font-size: 1.1em;
   font-weight: bold;
 }
 
 .wa {
   color: #ff0f1e;
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
 }
 .ac {
   color: #07ac07;
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
 }
 
 .submilink {
   color: #a3fbee;
-  text-decoration: none;
+  text-decoration: underline;
   font-weight: bold;
   margin-left: 150px;
 }
 /*Problem Page CSS end */
 
 /* Home Page CSS start */
+.linkedinlink {
+  color: #a3fbee;
+  text-decoration: underline;
+}
+
 .homepage {
   background-color: #1b2430;
   min-height: 89.5vh;
@@ -396,7 +416,7 @@ textarea {
   color: #c5c5c5;
   text-align: center;
   margin: 0;
-  padding: 0px 10px 0 10px;
+  padding: 0 0 15px 0;
   font-weight: bold;
 }
 
@@ -419,7 +439,7 @@ textarea {
   color: #c5c5c5;
   text-align: center;
   margin: 0;
-  padding: 0 10px 10px 10px;
+  padding: 0;
 }
 
 @keyframes colorChange {
@@ -456,7 +476,7 @@ textarea {
   display: block;
   margin: 0 auto;
   padding: 5px 10px 5px 10px;
-  font-weight: bold;
+  font-weight: 1000;
   border-radius: 20px 20px 20px 20px;
   cursor: pointer;
   background-color: #17cf97;
@@ -483,8 +503,9 @@ textarea {
 .code-popup {
   background-color: #1b2430;
   padding: 2px 20px 20px 20px;
-  border-radius: 5px;
+  border-radius: 25px;
   max-height: 85vh;
+  max-width: 70vw;
   overflow-y: auto;
   overflow-x: auto;
   box-shadow: 0 5px 200px rgba(5, 255, 197, 0.555);

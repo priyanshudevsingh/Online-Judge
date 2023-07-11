@@ -151,7 +151,7 @@ const Register = () => {
             </form>
 
             <NavLink className="already" to="/login">
-              I am already registered
+              I am already registered!
             </NavLink>
           </div>
         </div>

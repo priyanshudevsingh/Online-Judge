@@ -263,7 +263,7 @@ void solve()
             
         }
  
-        ans++;
+        ans+=2;
     }
  
     cout<<ans<<"\n";

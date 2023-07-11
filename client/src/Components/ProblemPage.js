@@ -261,7 +261,7 @@ const ProblemPage = () => {
               </div>
 
               <div>
-                <textarea onChange={(e) => setCode(e.target.value)}></textarea>
+                <textarea spellcheck="false" onChange={(e) => setCode(e.target.value)}></textarea>
                 <button type="submit" id="test" onClick={handleRun}>
                   Run Code
                 </button>

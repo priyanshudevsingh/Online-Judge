@@ -80,6 +80,37 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// logout route
+router.get("/logout", (req, res) => {
+  res.clearCookie("jwtoken", { path: "/" });
+  res.status(200).send("Logged Out Successfully");
+});
+
+// verification for navbar
+router.get("/verify", async (req, res) => {
+  try {
+    const token = req.cookies.jwtoken;
+    if (!token) {
+      return res.status(401).json({ message: "User not authenticated" });
+    }
+
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    const user = await User.findOne({
+      _id: decodedToken._id,
+      "tokens.token": token,
+    });
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid or expired token" });
+    }
+
+    res.status(200).json({ message: "User authenticated" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // problems getter route
 router.get("/problems", authenticate, async (req, res) => {
   const allProblems = await Problem.find({});
@@ -156,12 +187,6 @@ router.get("/userdata", authenticate, async (req, res) => {
   } catch (err) {
     console.error(err);
   }
-});
-
-// logout route
-router.get("/logout", (req, res) => {
-  res.clearCookie("jwtoken", { path: "/" });
-  res.status(200).send("Logged Out Successfully");
 });
 
 // code runner route

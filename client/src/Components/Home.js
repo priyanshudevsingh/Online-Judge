@@ -14,6 +14,15 @@ const Home = () => {
           Welcome to <span className="tuoj">Ultimate Online Judge</span>, a MERN
           stack-based online judge platform!
         </p>
+        <p className="text1">
+          Made With ❤️ By &nbsp;
+          <a
+            className="linkedinlink"
+            href="https://www.linkedin.com/in/priyanshudevsingh/"
+          >
+            Priyanshu Singh
+          </a>
+        </p>
         <img className="dogmeme" src={dogmeme} alt="dog typing on laptop"></img>
         <p className="text3">
           Whether you are aiming to land a dream job in the tech industry or

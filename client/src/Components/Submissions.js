@@ -62,7 +62,7 @@ const Submissions = () => {
 
   useEffect(() => {
     callSubmissions();
-  });
+  }, []);
 
   const handleCodeClick = (code) => {
     setCode(code);
@@ -121,6 +121,7 @@ const Submissions = () => {
                             fontSize: "0.91em",
                             color: "#ff0f1e",
                             cursor: "pointer",
+                            fontWeight: "bold",
                           }}
                           onClick={() => handleCodeClick(i.code)}
                         >
@@ -133,6 +134,7 @@ const Submissions = () => {
                             fontSize: "0.91em",
                             color: "#07ac07",
                             cursor: "pointer",
+                            fontWeight: "bold",
                           }}
                           onClick={() => handleCodeClick(i.code)}
                         >
