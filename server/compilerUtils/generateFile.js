@@ -17,11 +17,19 @@ const generateFile = async (lang, code) => {
   if (!fs.existsSync(langDir)) {
     fs.mkdirSync(langDir, { recursive: true });
   }
-  const codeId = uuid();
+  let codeId = uuid().replace(/-/g, "");
+
+  let modifiedCode = code;
+  if (lang === "java") {
+    codeId = "MyClass_" + codeId;
+    const classNameRegex = /public\s+class\s+(\w+)\s*\{/;
+    modifiedCode = code.replace(classNameRegex, `public class ${codeId} {`);
+  }
 
   const fileName = `${codeId}.${lang}`;
   const filePath = path.join(langDir, fileName);
-  await fs.writeFileSync(filePath, code);
+
+  await fs.writeFileSync(filePath, modifiedCode);
   return filePath;
 };
 

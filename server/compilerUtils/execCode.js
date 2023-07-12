@@ -37,36 +37,38 @@ const executeCode = async (filepath, lang, input, type) => {
   console.log(inPath);
   await fs.writeFileSync(inPath, input);
 
+  // commands for diff lang
+  const commands = {
+    cpp: [`g++ ${filepath} -o ${outPath} && cd ${langoutDir} && .\\${fileName}.exe < ${inPath}`],
+    java: [`javac -d ${langoutDir} ${filepath} && cd ${langoutDir} && java ${fileName} < ${inPath}`],
+    py: [`python ${filepath} < ${inPath}`],
+  };
+
   return new Promise((resolve, reject) => {
     if (type === "run") {
       console.log("running");
 
-      exec(
-        `g++ ${filepath} -o ${outPath} && cd ${langoutDir} && .\\${fileName}.exe < ${inPath}`,
-        (error, stdout, stderr) => {
-          if (error) {
-            reject({ error, stderr });
-          }
-          if (stderr) {
-            reject(stderr);
-          }
-          resolve(stdout);
+      exec(commands[lang][0], (error, stdout, stderr) => {
+        if (error) {
+          reject({ error, stderr });
         }
-      );
+        if (stderr) {
+          reject(stderr);
+        }
+        resolve(stdout);
+      });
     } else {
       console.log("submitting");
-      exec(
-        `g++ ${filepath} -o ${outPath} && cd ${langoutDir} && .\\${fileName}.exe < ${inPath}`,
-        (error, stdout, stderr) => {
-          if (error) {
-            reject({ error, stderr });
-          }
-          if (stderr) {
-            reject(stderr);
-          }
-          resolve(stdout);
+
+      exec(commands[lang][0], (error, stdout, stderr) => {
+        if (error) {
+          reject({ error, stderr });
         }
-      );
+        if (stderr) {
+          reject(stderr);
+        }
+        resolve(stdout);
+      });
       // will add other functionality later
     }
   });

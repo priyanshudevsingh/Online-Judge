@@ -222,7 +222,7 @@ const ProblemPage = () => {
   return (
     <>
       <section className="problempage">
-        {problem ? (
+        {descrip ? (
           <div className="page-content">
             <div className="ques">
               <p className={problem.difficulty + "hehe"}>{problem.name}</p>
@@ -256,12 +256,15 @@ const ProblemPage = () => {
                   <option value="">Select</option>
                   <option value="cpp">C++</option>
                   <option value="java">Java</option>
-                  <option value="python">Python</option>
+                  <option value="py">Python</option>
                 </select>
               </div>
 
               <div>
-                <textarea spellcheck="false" onChange={(e) => setCode(e.target.value)}></textarea>
+                <textarea
+                  spellcheck="false"
+                  onChange={(e) => setCode(e.target.value)}
+                ></textarea>
                 <button type="submit" id="test" onClick={handleRun}>
                   Run Code
                 </button>
