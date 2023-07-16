@@ -39,7 +39,7 @@ const executeCode = async (filepath, lang, input, type) => {
 
   // commands for diff lang
   const commands = {
-    cpp: [`g++ ${filepath} -o ${outPath} && cd ${langoutDir} && .\\${fileName}.exe < ${inPath}`],
+    cpp: [`g++ ${filepath} -o ${outPath} && cd ${langoutDir} && ./${fileName}.exe < ${inPath}`],
     java: [`javac -d ${langoutDir} ${filepath} && cd ${langoutDir} && java ${fileName} < ${inPath}`],
     py: [`python ${filepath} < ${inPath}`],
   };

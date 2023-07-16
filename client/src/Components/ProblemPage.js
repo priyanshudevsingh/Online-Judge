@@ -22,7 +22,7 @@ const ProblemPage = () => {
   // for getting problem data
   const callProblems = async () => {
     try {
-      const res = await fetch(`/problem/` + cleanId, {
+      const res = await fetch(`http://localhost:5000/problem/` + cleanId, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -59,7 +59,7 @@ const ProblemPage = () => {
   // for getting current logged in user data
   const callUserid = async () => {
     try {
-      const res = await fetch("/userdata", {
+      const res = await fetch("http://localhost:5000/userdata", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -91,11 +91,12 @@ const ProblemPage = () => {
       if (code === "") {
         window.alert("First write some code");
       }
-      const response = await fetch("/run", {
+      const response = await fetch("http://localhost:5000/run", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify({
           lang: selectedLanguage,
           code: code,
@@ -151,11 +152,12 @@ const ProblemPage = () => {
       if (code === "") {
         window.alert("First write some code");
       }
-      const response = await fetch("/run", {
+      const response = await fetch("http://localhost:5000/run", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify({
           lang: selectedLanguage,
           code: code,
@@ -198,11 +200,12 @@ const ProblemPage = () => {
       console.log(verdict);
 
       // now adding submission to the DB
-      const res = await fetch("/addsubmission", {
+      const res = await fetch("http://localhost:5000/addsubmission", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify({
           problemid: cleanId,
           lang: selectedLanguage,

@@ -13,7 +13,7 @@ const Submissions = () => {
 
   const callSubmissions = async () => {
     try {
-      const res = await fetch(`/submissions/` + cleanId, {
+      const res = await fetch(`http://localhost:5000/submissions/` + cleanId, {
         method: "GET",
         headers: {
           Accept: "application/json",

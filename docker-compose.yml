@@ -1,0 +1,11 @@
+version: "2.18.1"
+services:
+  client:
+    build: ./client
+    stdin_open: true
+    ports:
+      - "3000:3000"
+  server:
+    build: ./server
+    ports:
+      - "5000:5000"

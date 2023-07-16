@@ -8,11 +8,12 @@ const NavBar = () => {
 
   const fetchAuthStatus = async () => {
     try {
-      const res = await fetch("/verify", {
+      const res = await fetch("http://localhost:5000/verify", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include',
       });
 
       const data = await res.json();
@@ -33,11 +34,12 @@ const NavBar = () => {
 
   const handlelogout = async () => {
     try {
-      const res = await fetch("/logout", {
+      const res = await fetch("http://localhost:5000/logout", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include',
       });
 
       navigate("/login");

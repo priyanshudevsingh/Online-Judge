@@ -6,7 +6,7 @@ const Problems = () => {
   const [problem, setProblem] = useState();
   const callProblems = async () => {
     try {
-      const res = await fetch("/problems", {
+      const res = await fetch("http://localhost:5000/problems", {
         method: "GET",
         headers: {
           Accept: "application/json",
