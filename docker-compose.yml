@@ -1,11 +1,14 @@
-version: "2.18.1"
+version: '3'
+
 services:
   client:
-    build: ./client
-    stdin_open: true
+    image: priyanshudevsingh/online-judge:theultimateoj-client
     ports:
-      - "3000:3000"
+      - 3000:3000
+    depends_on:
+      - server
+
   server:
-    build: ./server
+    image: priyanshudevsingh/online-judge:theultimateoj-server
     ports:
-      - "5000:5000"
+      - 5000:5000
