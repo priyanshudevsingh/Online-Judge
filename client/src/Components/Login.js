@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { backendUrl } from "../App";
 
 const Login = ({ handleAuthChange }) => {
   const navigate = useNavigate();
@@ -11,12 +12,12 @@ const Login = ({ handleAuthChange }) => {
   const PostData = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/login", {
+    const res = await fetch(`${backendUrl}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
       body: JSON.stringify({
         email,
         password,

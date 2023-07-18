@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { backendUrl } from "../App";
 
 const Submissions = () => {
   const { pid } = useParams();
@@ -13,7 +14,7 @@ const Submissions = () => {
 
   const callSubmissions = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/submissions/` + cleanId, {
+      const res = await fetch(`${backendUrl}/submissions/` + cleanId, {
         method: "GET",
         headers: {
           Accept: "application/json",

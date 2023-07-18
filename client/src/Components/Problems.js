@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { backendUrl } from "../App";
 
 const Problems = () => {
   const navigate = useNavigate();
   const [problem, setProblem] = useState();
   const callProblems = async () => {
     try {
-      const res = await fetch("http://localhost:5000/problems", {
+      const res = await fetch(`${backendUrl}/problems`, {
         method: "GET",
         headers: {
           Accept: "application/json",

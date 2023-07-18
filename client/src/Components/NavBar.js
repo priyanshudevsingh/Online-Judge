@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.png";
-import { NavLink, useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { backendUrl } from "../App";
 
 const NavBar = () => {
   const [auth, setAuth] = useState(false);
@@ -8,12 +9,12 @@ const NavBar = () => {
 
   const fetchAuthStatus = async () => {
     try {
-      const res = await fetch("http://localhost:5000/verify", {
+      const res = await fetch(`${backendUrl}/verify`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
       });
 
       const data = await res.json();
@@ -34,12 +35,12 @@ const NavBar = () => {
 
   const handlelogout = async () => {
     try {
-      const res = await fetch("http://localhost:5000/logout", {
+      const res = await fetch(`${backendUrl}/logout`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
       });
 
       navigate("/login");

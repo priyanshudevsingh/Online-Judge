@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { backendUrl } from "../App";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -24,12 +25,12 @@ const Register = () => {
 
     const { name, userid, email, password, cpassword } = user;
 
-    const res = await fetch("http://localhost:5000/register", {
+    const res = await fetch(`${backendUrl}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
       body: JSON.stringify({
         name,
         userid,

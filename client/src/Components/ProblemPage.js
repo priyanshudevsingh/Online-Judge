@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom";
+import { backendUrl } from "../App";
 
 const ProblemPage = () => {
   const { pid } = useParams();
@@ -22,7 +23,7 @@ const ProblemPage = () => {
   // for getting problem data
   const callProblems = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/problem/` + cleanId, {
+      const res = await fetch(`${backendUrl}/problem/` + cleanId, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -59,7 +60,7 @@ const ProblemPage = () => {
   // for getting current logged in user data
   const callUserid = async () => {
     try {
-      const res = await fetch("http://localhost:5000/userdata", {
+      const res = await fetch(`${backendUrl}/userdata`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -91,12 +92,12 @@ const ProblemPage = () => {
       if (code === "") {
         window.alert("First write some code");
       }
-      const response = await fetch("http://localhost:5000/run", {
+      const response = await fetch(`${backendUrl}/run`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           lang: selectedLanguage,
           code: code,
@@ -152,12 +153,12 @@ const ProblemPage = () => {
       if (code === "") {
         window.alert("First write some code");
       }
-      const response = await fetch("http://localhost:5000/run", {
+      const response = await fetch(`${backendUrl}/run`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           lang: selectedLanguage,
           code: code,
@@ -200,12 +201,12 @@ const ProblemPage = () => {
       console.log(verdict);
 
       // now adding submission to the DB
-      const res = await fetch("http://localhost:5000/addsubmission", {
+      const res = await fetch(`${backendUrl}/addsubmission`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           problemid: cleanId,
           lang: selectedLanguage,
