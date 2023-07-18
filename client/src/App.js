@@ -9,7 +9,7 @@ import Submissions from "./Components/Submissions";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 
-export const backendUrl = process.env.ONLINE_JUDGE_SERVER_URL;
+export const backendUrl = process.env.REACT_APP_SERVER_URL;
 
 const App = () => {
   const [auth, setAuth] = useState(false);
