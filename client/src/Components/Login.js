@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { backendUrl } from "../App";
+import { backendUrl } from "../backendUrl.js";
 
-const Login = ({ handleAuthChange }) => {
+const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -10,36 +10,40 @@ const Login = ({ handleAuthChange }) => {
 
   // connecting login page to backend
   const PostData = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const res = await fetch(`${backendUrl}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+      const res = await fetch(`${backendUrl}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!data) {
-      window.alert("You're missing some fields");
-      console.log("You're missing some fields");
-    } else if (res.status === 422) {
-      window.alert("You're missing some fields");
-      console.log("You're missing some fields");
-    } else if (res.status === 400) {
-      window.alert("Invalid Credentials");
-      console.log("Invalid Credentials");
-    } else {
-      window.alert("Login Successful");
-      console.log("Login Successful");
-      navigate("/");
-      handleAuthChange(true);
+      if (!data) {
+        window.alert("You're missing some fields");
+        console.log("You're missing some fields");
+      } else if (res.status === 422) {
+        window.alert("You're missing some fields");
+        console.log("You're missing some fields");
+      } else if (res.status === 400) {
+        window.alert("Invalid Credentials");
+        console.log("Invalid Credentials");
+      } else {
+        localStorage.setItem("jwtToken", data.token);
+        window.alert("Login Successful");
+        console.log("Login Successful");
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

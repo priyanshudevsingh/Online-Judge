@@ -66,13 +66,9 @@ router.post("/login", async (req, res) => {
       } else {
         token = await userLogin.generateAuthToken();
 
-        res.cookie("jwtoken", token, {
-          expires: new Date(Date.now() + 25892000000),
-          httpOnly: true,
-          secure: true,
-          sameSite: "none",
-        });
-        res.status(201).json({ message: "User Logged in Successfully" });
+        res
+          .status(201)
+          .json({ token: token, message: "User Logged in Successfully" });
       }
     } else {
       res.status(400).json({ error: "Invalid Credentials" });
@@ -82,41 +78,14 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// logout route
-router.get("/logout", (req, res) => {
-  res.clearCookie("jwtoken", { path: "/" });
-  res.status(200).send("Logged Out Successfully");
-});
-
-// verification for navbar
-router.get("/verify", async (req, res) => {
-  try {
-    const token = req.cookies.jwtoken;
-    if (!token) {
-      return res.status(401).json({ message: "User not authenticated" });
-    }
-
-    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-    const user = await User.findOne({
-      _id: decodedToken._id,
-      "tokens.token": token,
-    });
-
-    if (!user) {
-      return res.status(401).json({ message: "Invalid or expired token" });
-    }
-
-    res.status(200).json({ message: "User authenticated" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
 // problems getter route
 router.get("/problems", authenticate, async (req, res) => {
-  const allProblems = await Problem.find({});
-  res.send(allProblems);
+  try {
+    const allProblems = await Problem.find({});
+    res.send(allProblems);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // problem adder route

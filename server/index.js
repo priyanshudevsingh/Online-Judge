@@ -16,6 +16,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
+      "http://ec2-3-110-164-121.ap-south-1.compute.amazonaws.com:3000",
       "https://online-judge-client.onrender.com",
     ],
     methods: ["GET", "POST"],

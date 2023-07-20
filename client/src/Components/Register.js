@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { backendUrl } from "../App";
+import { backendUrl } from "../backendUrl";
 
 const Register = () => {
   const navigate = useNavigate();

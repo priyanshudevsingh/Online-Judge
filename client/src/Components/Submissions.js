@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { backendUrl } from "../App";
+import { backendUrl } from "../backendUrl";
 
 const Submissions = () => {
   const { pid } = useParams();
@@ -19,6 +19,7 @@ const Submissions = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("jwtToken"),
         },
         credentials: "include",
       });

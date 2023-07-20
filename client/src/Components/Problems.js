@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { backendUrl } from "../App";
+import { backendUrl } from "../backendUrl";
 
 const Problems = () => {
   const navigate = useNavigate();
@@ -12,6 +12,7 @@ const Problems = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("jwtToken"),
         },
         credentials: "include",
       });

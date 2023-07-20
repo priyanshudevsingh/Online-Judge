@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom";
-import { backendUrl } from "../App";
+import { backendUrl } from "../backendUrl";
 
 const ProblemPage = () => {
   const { pid } = useParams();
@@ -28,6 +28,7 @@ const ProblemPage = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("jwtToken"),
         },
         credentials: "include",
       });
@@ -65,6 +66,7 @@ const ProblemPage = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("jwtToken"),
         },
         credentials: "include",
       });
@@ -96,6 +98,7 @@ const ProblemPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("jwtToken"),
         },
         credentials: "include",
         body: JSON.stringify({
@@ -157,6 +160,7 @@ const ProblemPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("jwtToken"),
         },
         credentials: "include",
         body: JSON.stringify({
@@ -205,6 +209,7 @@ const ProblemPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("jwtToken"),
         },
         credentials: "include",
         body: JSON.stringify({

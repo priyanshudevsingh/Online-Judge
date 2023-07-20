@@ -3,7 +3,11 @@ const User = require("../model/userSchema");
 
 const authenticate = async (req, res, next) => {
   try {
-    const token = req.cookies.jwtoken;
+    const token = req.headers.authorization;
+    if (!token) {
+      throw new Error("Unauthorized: No token provided");
+    }
+
     const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
 
     const rootUser = await User.findOne({
@@ -20,7 +24,6 @@ const authenticate = async (req, res, next) => {
     next();
   } catch (err) {
     res.status(401).send("Unauthorized: No token provided");
-    //console.log(err); this error occurs because coming token is null or empty.
   }
 };
 

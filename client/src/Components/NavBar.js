@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.png";
 import { NavLink, useNavigate } from "react-router-dom";
-import { backendUrl } from "../App";
 
 const NavBar = () => {
   const [auth, setAuth] = useState(false);
@@ -9,20 +8,11 @@ const NavBar = () => {
 
   const fetchAuthStatus = async () => {
     try {
-      const res = await fetch(`${backendUrl}/verify`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      const data = await res.json();
-      console.log(data);
-      if (res.status === 200) {
-        setAuth(true);
-      } else {
+      const jwtToken = localStorage.getItem("jwtToken");
+      if (!jwtToken) {
         setAuth(false);
+      } else {
+        setAuth(true);
       }
     } catch (err) {
       console.log(err);
@@ -31,27 +21,12 @@ const NavBar = () => {
 
   useEffect(() => {
     fetchAuthStatus();
-  }, []);
+  });
 
-  const handlelogout = async () => {
-    try {
-      const res = await fetch(`${backendUrl}/logout`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      navigate("/login");
-      setAuth(false);
-      if (!res.status === 200) {
-        const error = new Error(res.error);
-        throw error;
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const handlelogout = () => {
+    localStorage.removeItem("jwtToken");
+    navigate("/login");
+    setAuth(false);
   };
 
   const RenderMenu = () => {
