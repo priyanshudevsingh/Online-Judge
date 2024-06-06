@@ -16,6 +16,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
+      "https://online-judge-client.vercel.app"
     ],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
