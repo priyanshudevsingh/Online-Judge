@@ -2,13 +2,13 @@ version: '3'
 
 services:
   client:
-    image: priyanshudevsingh/online-judge:theultimateoj-client
+    image: priyanshudevsingh/online-judge:client-img
     ports:
       - 3000:3000
     depends_on:
       - server
 
   server:
-    image: priyanshudevsingh/online-judge:theultimateoj-server
+    image: priyanshudevsingh/online-judge:server-img
     ports:
       - 5000:5000
