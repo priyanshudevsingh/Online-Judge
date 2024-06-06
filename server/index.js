@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://online-judge-client.vercel.app"
+      "http://ec2-3-95-67-124.compute-1.amazonaws.com:3000"
     ],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
