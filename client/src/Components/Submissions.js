@@ -64,7 +64,7 @@ const Submissions = () => {
 
   useEffect(() => {
     callSubmissions();
-  }, []);
+  }, [callSubmissions]);
 
   const handleCodeClick = (code) => {
     setCode(code);
