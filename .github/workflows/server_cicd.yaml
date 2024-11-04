@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "server/**"
+      - ".github/workflows/server_cicd.yaml"
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
