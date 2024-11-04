@@ -1,0 +1,109 @@
+name: Server CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "server/**"
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  REPO_URI: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+  AWS_EC2_PUBLIC_IP: ${{ secrets.AWS_EC2_PUBLIC_IP }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Log in to ECR
+        run: |
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $REPO_URI
+
+      - name: Create ECR Repository
+        id: create_ecr
+        run: |
+          if ! aws ecr describe-repositories --repository-names oj-server --region $AWS_REGION; then
+            aws ecr create-repository --repository-name oj-server --region $AWS_REGION
+            echo "Repository 'oj-server' created."
+          else
+            echo "Repository 'oj-server' already exists. Skipping creation."
+          fi
+
+      - name: Build Docker Image
+        run: docker build -t $REPO_URI/oj-server:${{ github.sha }} .
+        working-directory: ./server
+
+      - name: Push Image to ECR Repository
+        run: docker push $REPO_URI/oj-server:${{ github.sha }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy Image on EC2
+        run: |
+          # Decode the key and save it to a file
+          echo "${{ secrets.ENCODED_PEM_KEY }}" | base64 --decode > ec2-key.pem
+          chmod 400 ec2-key.pem
+
+          # Create .ssh directory if it doesn't exist
+          mkdir -p ~/.ssh
+
+          # Add EC2 public IP to known_hosts
+          ssh-keyscan -H $AWS_EC2_PUBLIC_IP >> ~/.ssh/known_hosts
+
+          ssh -i ec2-key.pem ubuntu@$AWS_EC2_PUBLIC_IP << 'EOF'
+            # Install Docker if not present
+            if ! command -v docker &> /dev/null; then
+              echo "Docker not found, installing..."
+              sudo apt update
+              sudo apt install -y docker.io
+              sudo systemctl start docker
+              sudo systemctl enable docker
+            else
+              echo "Docker is already installed."
+            fi
+            
+            # Install unzip if not present
+            if ! command -v unzip &> /dev/null; then
+              echo "unzip not found, installing..."
+              sudo apt install -y unzip
+            fi
+
+            # Install AWS CLI if not present
+            if ! command -v aws &> /dev/null; then
+              echo "AWS CLI not found, installing..."
+              curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+              unzip awscliv2.zip
+              sudo ./aws/install
+              rm -rf awscliv2.zip aws
+            else
+              echo "AWS CLI is already installed."
+            fi
+
+            # Configure AWS credentials
+            export AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}"
+            export AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+            export AWS_REGION="${{ secrets.AWS_REGION }}"
+
+            # Log in to ECR on EC2
+            aws ecr get-login-password --region ${{env.AWS_REGION}} | sudo docker login --username AWS --password-stdin ${{ env.REPO_URI }}
+
+            sudo docker stop oj-server || true
+            sudo docker rm oj-server || true
+            sudo docker image prune -af
+
+            sudo docker pull ${{env.REPO_URI}}/oj-server:${{ github.sha }}
+            sudo docker run -d --name oj-server -p 5000:5000 ${{env.REPO_URI}}/oj-server:${{ github.sha }}
+          EOF

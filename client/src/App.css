@@ -302,7 +302,7 @@ pre {
 }
 
 .yout,
-.eout{
+.eout {
   color: #17cf97;
   font-size: 0.9em;
   font-weight: bold;
@@ -398,7 +398,8 @@ textarea {
   color: #a3fbee;
   text-decoration: underline;
   font-weight: bold;
-  margin-left: 209px;
+  float: right;
+  padding-right: 4px;
 }
 /*Problem Page CSS end */
 

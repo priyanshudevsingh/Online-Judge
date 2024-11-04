@@ -1,1 +1,2 @@
-export const backendUrl = "http://ec2-3-95-67-124.compute-1.amazonaws.com:5000";
+export const backendUrl = "https://oj-be.priyanshudevsingh.me";
+// export const backendUrl = "http://localhost:5000";

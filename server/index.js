@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "http://ec2-3-95-67-124.compute-1.amazonaws.com:3000"
+      "https://oj.priyanshudevsingh.me"
     ],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
