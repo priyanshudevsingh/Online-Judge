@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: ["http://localhost:3000", "https://oj.priyanshudevsingh.me"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Accept"],
     credentials: true,
   })
